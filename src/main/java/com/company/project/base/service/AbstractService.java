@@ -1,7 +1,7 @@
-package com.company.project.core;
+package com.company.project.base.service;
 
 
-import org.apache.ibatis.exceptions.TooManyResultsException;
+import com.company.project.base.dao.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Condition;
 
@@ -17,7 +17,7 @@ public abstract class AbstractService<T> implements Service<T> {
     @Autowired
     protected Mapper<T> mapper;
 
-    private Class<T> modelClass;    // 当前泛型真实类型的Class
+    private Class<T> modelClass;
 
     public AbstractService() {
         ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
@@ -49,15 +49,15 @@ public abstract class AbstractService<T> implements Service<T> {
     }
 
     @Override
-    public T findBy(String fieldName, Object value) throws TooManyResultsException {
+    public T findBy(String fieldName, Object value) throws Exception {
         try {
             T model = modelClass.newInstance();
             Field field = modelClass.getDeclaredField(fieldName);
             field.setAccessible(true);
             field.set(model, value);
             return mapper.selectOne(model);
-        } catch (ReflectiveOperationException e) {
-            throw new ServiceException(e.getMessage(), e);
+        } catch (Exception e) {
+            throw new Exception("通过成员名："+fieldName+"寻找对应属性，进行查询出现异常"+e.getMessage(), e);
         }
     }
 
