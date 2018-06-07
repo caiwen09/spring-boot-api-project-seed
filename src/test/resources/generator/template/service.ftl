@@ -1,6 +1,6 @@
 package ${basePackage}.service;
-import ${basePackage}.model.${modelNameUpperCamel};
-import ${basePackage}.core.Service;
+import ${basePackage}.pojo.${modelNameUpperCamel};
+import ${basePackage}.service.base.Service;
 
 
 /**
