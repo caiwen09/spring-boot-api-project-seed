@@ -6,6 +6,6 @@ import com.company.project.service.base.Service;
 /**
  * Created by CodeGenerator on 2018/02/22.
  */
-public interface CountryService extends Service<Country> {
+public interface  CountryService extends Service<Country> {
 
 }
